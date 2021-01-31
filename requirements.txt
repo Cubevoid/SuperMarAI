@@ -1,7 +1,5 @@
 nes-py
 gym-super-mario-bros
-neat-py
-neat
-mathplotlib
+neat-python
 numpy
 gym
