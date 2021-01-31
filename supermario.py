@@ -6,6 +6,9 @@ import os
 import neat
 import visualize
 
+xor_inputs = [(0.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0)]
+xor_outputs = [(0.0,), (1.0,), (1.0,), (0.0,)]
+
 
 def eval_genomes(genomes, config):
     for genome_id, genome in genomes:
