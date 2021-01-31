@@ -2,3 +2,6 @@ nes-py
 gym-super-mario-bros
 neat-py
 neat
+mathplotlib
+numpy
+gym
