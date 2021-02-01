@@ -15,9 +15,9 @@ def eval_genomes(genomes, config):
         genome.fitness = 4.0
         net = neat.nn.FeedForwardNetwork.create(genome, config)
         genome.fitness = play_game()
-        for xi, xo in zip(xor_inputs, xor_outputs):
-            output = net.activate(xi)
-            genome.fitness -= (output[0] - xo[0]) ** 2
+        # for xi, xo in zip(xor_inputs, xor_outputs):
+        #     output = net.activate(xi)
+        #     genome.fitness -= (output[0] - xo[0]) ** 2
 
 
 def run(config_file):
@@ -68,6 +68,7 @@ def play_game():
     for step in range(1000):
         if done:
             state = env.reset()
+
         state, reward, done, info = env.step(env.action_space.sample())  # reward info is returned by step()
         # env.render()
     env.close()
