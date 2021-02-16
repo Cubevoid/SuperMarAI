@@ -1,6 +1,6 @@
-numpy~=1.20.0
-gym~=0.18.0
+numpy
+gym
 gym-retro
-graphviz~=0.16
-matplotlib~=3.3.4
-neat~=0.4.1
+graphviz
+matplotlib
+neat
