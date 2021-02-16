@@ -3,4 +3,5 @@ gym
 gym-retro
 graphviz
 matplotlib
-neat
+nes_py
+neat-python
