@@ -88,6 +88,8 @@ class PooledErrorCompute(object):
         scores = []
         for genome, net in nets:
             observation = env.reset()
+            # observation is like the entire 240x256x3 image
+            # TODO: make observation useful data instead
             step = 0
             data = []
             while 1:
@@ -99,8 +101,7 @@ class PooledErrorCompute(object):
                     action = np.argmax(output)
 
                 observation, reward, done, info = env.step(action)
-                observation = observation.flatten
-                data.append(np.hstack((observation, action, reward)))
+                data.append(np.hstack((info.values(), action, reward)))
 
                 if done:
                     break
