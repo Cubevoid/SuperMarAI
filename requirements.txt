@@ -1,6 +1,5 @@
 numpy
 gym
-gym-retro
 gym-super-mario-bros
 graphviz
 matplotlib

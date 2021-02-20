@@ -99,7 +99,7 @@ class PooledErrorCompute(object):
                     action = np.argmax(output)
 
                 observation, reward, done, info = env.step(action)
-                reward += 15  # reward is now between (0, 30)
+                observation = observation.flatten
                 data.append(np.hstack((observation, action, reward)))
 
                 if done:
