@@ -1,21 +1,25 @@
 from __future__ import print_function
+
 import multiprocessing
-import pickle
-import time
-import gym
-from nes_py.wrappers import JoypadSpace
-import gym_super_mario_bros
-from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
 import os
-import neat
+import pickle
 import random
-import numpy as np
-import visualize
+import time
+
+import gym
+import gym_super_mario_bros
 import matplotlib.pyplot as plt
+import neat
+import numpy as np
+from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
+from nes_py.wrappers import JoypadSpace
+from skimage.transform import rescale
 
-NUM_CORES = 12
+import visualize
 
-env = gym_super_mario_bros.make('SuperMarioBros-v0')
+NUM_CORES = multiprocessing.cpu_count()
+
+env = gym_super_mario_bros.make('SuperMarioBrosRandomStages-v2')
 env = JoypadSpace(env, SIMPLE_MOVEMENT)
 
 print("action space: {0!r}".format(env.action_space))
@@ -90,6 +94,11 @@ class PooledErrorCompute(object):
             observation = env.reset()
             # observation is like the entire 240x256x3 image
             # TODO: make observation useful data instead
+
+            observation = np.sum(observation, axis=2)
+            observation = rescale(observation, 0.125, anti_aliasing=False)
+            observation = observation.flatten()
+
             step = 0
             data = []
             while 1:
@@ -101,7 +110,12 @@ class PooledErrorCompute(object):
                     action = np.argmax(output)
 
                 observation, reward, done, info = env.step(action)
-                data.append(np.hstack((info.values(), action, reward)))
+
+                observation = np.sum(observation, axis=2)
+                observation = rescale(observation, 0.125, anti_aliasing=False)
+                observation = observation.flatten()
+
+                data.append(np.hstack((observation, action, reward)))
 
                 if done:
                     break
@@ -114,7 +128,7 @@ class PooledErrorCompute(object):
 
             self.test_episodes.append((score, data))
 
-            env.render()  # Comment out for performance improvement
+            # env.render()  # Comment out for performance improvement
 
         print("Score range [{:.3f}, {:.3f}]".format(min(scores), max(scores)))
 

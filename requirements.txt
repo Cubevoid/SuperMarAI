@@ -5,3 +5,4 @@ graphviz
 matplotlib
 nes_py
 neat-python
+scikit-image
