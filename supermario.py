@@ -171,6 +171,7 @@ class PooledErrorCompute(object):
 
 
 def run():
+    print(NUM_CORES)
     # Load the config file, which is assumed to live in
     # the same directory as this script.
     local_dir = os.path.dirname(__file__)
