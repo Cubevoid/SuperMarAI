@@ -6,3 +6,5 @@ matplotlib
 nes_py
 neat-python
 scikit-image
+gym-pull
+ppaquette-gym-super-mario

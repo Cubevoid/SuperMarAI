@@ -6,7 +6,7 @@ import pickle
 import random
 import time
 
-import gym
+import gym, ppaquette_gym_super_mario
 import gym_super_mario_bros
 import matplotlib.pyplot as plt
 import neat
@@ -18,9 +18,14 @@ from skimage.transform import rescale
 import visualize
 
 NUM_CORES = multiprocessing.cpu_count()
+ACTIONS = [
+    [0, 0, 0, 1, 0, 1],
+    [0, 0, 0, 1, 1, 1],
+]
+env = gym.make('ppaquette/SuperMarioBros-1-1-Tiles-v0')
 
-env = gym_super_mario_bros.make('SuperMarioBrosRandomStages-v2')
-env = JoypadSpace(env, SIMPLE_MOVEMENT)
+# env = gym_super_mario_bros.make('SuperMarioBrosRandomStages-v2')
+# env = JoypadSpace(env, SIMPLE_MOVEMENT)
 
 print("action space: {0!r}".format(env.action_space))
 print("observation space: {0!r}".format(env.observation_space))
@@ -95,8 +100,6 @@ class PooledErrorCompute(object):
             # observation is like the entire 240x256x3 image
             # TODO: make observation useful data instead
 
-            observation = np.sum(observation, axis=2)
-            observation = rescale(observation, 0.125, anti_aliasing=False)
             observation = observation.flatten()
 
             step = 0
@@ -111,8 +114,6 @@ class PooledErrorCompute(object):
 
                 observation, reward, done, info = env.step(action)
 
-                observation = np.sum(observation, axis=2)
-                observation = rescale(observation, 0.125, anti_aliasing=False)
                 observation = observation.flatten()
 
                 data.append(np.hstack((observation, action, reward)))
