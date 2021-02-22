@@ -171,7 +171,7 @@ class PooledErrorCompute(object):
 
 
 def run():
-    print("Running on " + NUM_CORES + " CPU cores.")
+    print("Running on " + str(NUM_CORES) + " CPU cores.")
     # Load the config file, which is assumed to live in
     # the same directory as this script.
     local_dir = os.path.dirname(__file__)
